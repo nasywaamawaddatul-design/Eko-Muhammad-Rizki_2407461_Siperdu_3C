@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Buku;
 
 class HomeController extends Controller
 {
@@ -13,7 +13,9 @@ class HomeController extends Controller
 
     public function katalogBuku()
     {
-        return view('user.buku.katalog');
-    }
+        // Buku terbaru tampil paling atas
+        $buku = Buku::with('kategori')->latest()->get();
 
+        return view('user.buku.katalog', compact('buku'));
+    }
 }
